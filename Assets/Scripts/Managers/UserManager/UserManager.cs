@@ -1,10 +1,16 @@
-﻿public static class UserManager
-{
-    private static User _user;
-    public static User User => _user;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-    public static void Init(SaveData saveData)
+public static class UserManager
+{
+    private static User _currentUser;
+    private static List<User> _users = new List<User>();
+    public static List<User> Users => _users;
+    public static User CurrentUser => _currentUser;
+
+    public static void Init(UserData userData)
     {
-        _user = new User(saveData.UserData);
+        _currentUser = userData.LastUser;
+        _users = userData.Users;
     }
 }

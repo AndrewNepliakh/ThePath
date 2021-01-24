@@ -14,7 +14,7 @@ public static class SaveManager
         
         var saveData = new SaveData()
         {
-            UserData = UserManager.User.UserData
+            UserData = new UserData{LastUser = UserManager.CurrentUser, Users = UserManager.Users},
         };
 
         var json = JsonConvert.SerializeObject(saveData);
@@ -35,9 +35,28 @@ public static class SaveManager
         if (File.Exists(saveDataPath))
         {
             var json = File.ReadAllText(saveDataPath);
-            return JsonConvert.DeserializeObject<SaveData>(json);
+            SaveData saveData;
+            try
+            {
+                saveData = JsonConvert.DeserializeObject<SaveData>(json);
+            }
+            catch (Exception e)
+            {
+                saveData = GetDefaultSaveData();
+            }
+           
+            return saveData;
         }
 
-        return new SaveData() { };
+        return GetDefaultSaveData();
+    }
+
+    private static SaveData GetDefaultSaveData()
+    {
+        var lastUser = new User();
+        return new SaveData
+        {
+            UserData = new UserData{LastUser = lastUser, Users = new List<User>{lastUser}},
+        };
     }
 }
