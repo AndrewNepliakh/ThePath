@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 
 public class GameEnterPoint : MonoBehaviour
 {
@@ -10,7 +6,7 @@ public class GameEnterPoint : MonoBehaviour
     {
         var saveData = SaveManager.Load();
         UserManager.Init(saveData.UserData);
-        
+
         Debug.Log(UserManager.CurrentUser.Character.Stats.NickName);
         Debug.Log(UserManager.CurrentUser.ID);
     }
@@ -19,5 +15,4 @@ public class GameEnterPoint : MonoBehaviour
     {
         SaveManager.Save();
     }
-    
 }
