@@ -3,4 +3,5 @@
 [Serializable]
 public class Properties
 {
+    
 }
