@@ -5,16 +5,23 @@ namespace Managers
 {
     public abstract class Window : MonoBehaviour, IUIView
     {
+        protected IUIManager UIManager;
         public AssetsLoader AssetsLoader { get; set; }
 
         public virtual void Show(UIViewArguments arguments)
         {
-            AssetsLoader = arguments.AssetsLoader;
+            if (arguments != null)
+            {
+                AssetsLoader = arguments.AssetsLoader;
+                UIManager = arguments.UIManager;
+            }
+            
+            gameObject.SetActive(true);
         }
 
-        public virtual void Hide(UIViewArguments arguments = null)
+        public virtual void Hide(UIViewArguments arguments)
         {
-            AssetsLoader.UnloadAsset();
+            gameObject.SetActive(false);
         }
     }
 }

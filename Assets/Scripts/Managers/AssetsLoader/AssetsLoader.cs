@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Zenject;
 
 namespace Managers
 {
@@ -9,11 +10,11 @@ namespace Managers
     {
         private GameObject _cachedObject;
 
-        public async Task<T> LoadAsset<T>(Transform parent = null)
+        public async Task<T> InstantiateAsset<T>(Transform parent = null)
         {
             var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent);
             _cachedObject = await handle.Task;
-
+            
             if (_cachedObject.TryGetComponent(out T asset) == false)
             {
                 throw new NullReferenceException(

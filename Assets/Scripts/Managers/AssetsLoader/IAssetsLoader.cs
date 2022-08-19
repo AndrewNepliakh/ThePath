@@ -5,7 +5,7 @@ namespace Managers
 {
     public interface IAssetsLoader
     {
-         Task<T> LoadAsset<T>(Transform parent);
+         Task<T> InstantiateAsset<T>(Transform parent);
          void UnloadAsset();
     }
 }
