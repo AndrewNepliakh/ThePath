@@ -9,9 +9,9 @@ namespace Managers
     {
         private GameObject _cachedObject;
 
-        public async Task<T> LoadAsset<T>()
+        public async Task<T> LoadAsset<T>(Transform parent = null)
         {
-            var handle = Addressables.InstantiateAsync(typeof(T).ToString());
+            var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent);
             _cachedObject = await handle.Task;
 
             if (_cachedObject.TryGetComponent(out T asset) == false)
@@ -26,7 +26,7 @@ namespace Managers
         public void UnloadAsset()
         {
             if (_cachedObject == null) return;
-            
+
             _cachedObject.SetActive(false);
             Addressables.ReleaseInstance(_cachedObject);
             _cachedObject = null;
