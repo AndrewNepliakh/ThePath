@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 552c31fd948b7f3479353d3f2ca38236
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: cad7ea7f8bf32c74fad6a0d743cb5fc6
+    m_Address: Assets/Prefabs/UI/BattleSceneWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8f706866ab11d684395334177d339d78, type: 2}
   m_SchemaSet:
