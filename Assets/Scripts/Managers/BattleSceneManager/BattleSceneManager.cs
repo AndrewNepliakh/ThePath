@@ -9,7 +9,7 @@ namespace Controllers
         [Inject] private ILevelManager _levelManager;
         [Inject] private IGameManager _gameManager;
         [Inject] private IUIManager _uiManager;
-
+ 
         [SerializeField] private Canvas _mainCanvas;
 
         private IAIChoiceManager _iaiChoiceManager;
@@ -35,8 +35,7 @@ namespace Controllers
 
         private async void InitLevel()
         {
-            _level = await _levelManager.InstantiateLevel<Level_1>();
-            _level.Init(new LevelsArguments {UnitsData = _gameManager.UnitsData});
+            _level = await _levelManager.InstantiateLevel<Level_1>(new LevelsArguments {UnitsData = _gameManager.UnitsData});
         }
 
         private async void ProceedAction(ActionChoice choice)

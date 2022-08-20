@@ -1,9 +1,6 @@
-using UnityEngine;
-using Zenject;
-
 namespace Managers
 {
-    public class GameState : IState
+    public class BattleState : IState
     {
         public void Enter()
         {
