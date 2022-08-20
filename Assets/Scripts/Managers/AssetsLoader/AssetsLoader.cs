@@ -8,9 +8,7 @@ namespace Managers
 {
     public class AssetsLoader : IAssetsLoader
     {
-        [Inject] private DiContainer _diContainer;
         private GameObject _cachedObject;
-        
 
         public async Task<T> InstantiateAsset<T>(Transform parent = null)
         {
@@ -19,11 +17,11 @@ namespace Managers
             return TryGetComponent<T>();;
         }
         
-        public async Task<T> InstantiateAssetWithDI<T>(string ID)
+        public async Task<T> InstantiateAssetWithDI<T>(string ID, DiContainer diContainer)
         {
             var handle = Addressables.LoadAssetAsync<GameObject>(ID);
             var prefab = await handle.Task;
-            _cachedObject = _diContainer.InstantiatePrefab(prefab);
+            _cachedObject = diContainer.InstantiatePrefab(prefab);
             return TryGetComponent<T>();
         }
 

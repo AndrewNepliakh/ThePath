@@ -7,8 +7,9 @@ namespace Controllers
 {
     public class BattleSceneController : MonoBehaviour
     {
-        [Inject] private IUIManager _uiManager;
+        [Inject] private ILevelManager _levelManager;
         [Inject] private IGameManager _gameManager;
+        [Inject] private IUIManager _uiManager;
 
         [SerializeField] private Canvas _mainCanvas;
 
@@ -19,9 +20,7 @@ namespace Controllers
         private ResultWindow _resultWindow;
 
         private AssetsLoader _levelLoader;
-        private LevelController _level;
-        
-        [Inject] private DiContainer _diContainer;
+        private Level _level;
 
         private async void Awake()
         {
@@ -38,8 +37,7 @@ namespace Controllers
 
         private async void InitLevel()
         {
-            _levelLoader = new AssetsLoader();
-            _level = await _levelLoader.InstantiateAssetWithDI<LevelController>(_gameManager.LevelID);
+            _level = await _levelManager.InstantiateLevel<Level_1>();
         }
 
         private async void ProceedAction(ActionChoice choice)
