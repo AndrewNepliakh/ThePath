@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,11 @@ namespace Controllers
         private ChooseActionWindow _actionWindow;
         private ResultWindow _resultWindow;
 
+        private AssetsLoader _levelLoader;
+        private LevelController _level;
+        
+        [Inject] private DiContainer _diContainer;
+
         private async void Awake()
         {
             _aiChoiceController = new AIChoiceController(_gameManager.AIAmount);
@@ -26,6 +32,14 @@ namespace Controllers
 
             _actionWindow = await _uiManager.ShowWindow<ChooseActionWindow>();
             _actionWindow.OnChooseAction += ProceedAction;
+
+            InitLevel();
+        }
+
+        private async void InitLevel()
+        {
+            _levelLoader = new AssetsLoader();
+            _level = await _levelLoader.InstantiateAssetWithDI<LevelController>(_gameManager.LevelID);
         }
 
         private async void ProceedAction(ActionChoice choice)

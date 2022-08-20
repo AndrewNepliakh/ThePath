@@ -8,20 +8,34 @@ namespace Managers
 {
     public class AssetsLoader : IAssetsLoader
     {
+        [Inject] private DiContainer _diContainer;
         private GameObject _cachedObject;
+        
 
         public async Task<T> InstantiateAsset<T>(Transform parent = null)
         {
             var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent);
             _cachedObject = await handle.Task;
-            
-            if (_cachedObject.TryGetComponent(out T asset) == false)
+            return TryGetComponent<T>();;
+        }
+        
+        public async Task<T> InstantiateAssetWithDI<T>(string ID)
+        {
+            var handle = Addressables.LoadAssetAsync<GameObject>(ID);
+            var prefab = await handle.Task;
+            _cachedObject = _diContainer.InstantiatePrefab(prefab);
+            return TryGetComponent<T>();
+        }
+
+        private T TryGetComponent<T>()
+        {
+            if (_cachedObject.TryGetComponent(out T component) == false)
             {
                 throw new NullReferenceException(
                     $"Object of type {typeof(T)} is null on attempt to load it from addressables");
             }
 
-            return asset;
+            return component;
         }
 
         public void UnloadAsset()

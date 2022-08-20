@@ -6,15 +6,16 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public static class SaveManager 
+public static class SaveManager
 {
     public static void Save()
     {
-        var saveDataPath = Application.persistentDataPath + "/SaveData.json"; ;
-        
+        var saveDataPath = Application.persistentDataPath + "/SaveData.json";
+        ;
+
         var saveData = new SaveData()
         {
-            UserData = new UserData{LastUser = UserManager.CurrentUser, Users = UserManager.Users},
+            UserData = new UserData {LastUser = UserManager.CurrentUser, Users = UserManager.Users},
         };
 
         var json = JsonConvert.SerializeObject(saveData);
@@ -30,8 +31,8 @@ public static class SaveManager
 
     public static SaveData Load()
     {
-        var saveDataPath = Application.persistentDataPath + "/SaveData.json"; ;
-        
+        var saveDataPath = Application.persistentDataPath + "/SaveData.json";
+
         if (File.Exists(saveDataPath))
         {
             var json = File.ReadAllText(saveDataPath);
@@ -43,8 +44,9 @@ public static class SaveManager
             catch (Exception e)
             {
                 saveData = GetDefaultSaveData();
+                Debug.LogError("Json doesn't deserialized : " + e.Message);
             }
-           
+
             return saveData;
         }
 
@@ -56,7 +58,7 @@ public static class SaveManager
         var lastUser = new User();
         return new SaveData
         {
-            UserData = new UserData{LastUser = lastUser, Users = new List<User>{lastUser}},
+            UserData = new UserData {LastUser = lastUser, Users = new List<User> {lastUser}},
         };
     }
 }

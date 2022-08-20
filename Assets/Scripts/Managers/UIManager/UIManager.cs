@@ -32,7 +32,7 @@ namespace Managers
                 _currentWindow = newWindow;
                 _viewsPool.Add(typeof(T), _currentWindow);
                 
-                if (args == null) args = new UIViewArguments {AssetsLoader = loader, UIManager = _uiManager};
+                if (args == null) args = new UIViewArguments {AssetsLoader = loader};
                 else args.AssetsLoader = loader;
 
                 _currentWindow.Show(args);
@@ -43,6 +43,10 @@ namespace Managers
                 {
                     _currentWindow = uiView as Window;
                     _currentWindow.Show(args);
+                }
+                else
+                {
+                    throw new NullReferenceException("UIManager's pool doesn't contain view of this type");
                 }
             }
             
