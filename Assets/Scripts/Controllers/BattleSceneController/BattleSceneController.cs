@@ -24,7 +24,7 @@ namespace Controllers
 
         private async void Awake()
         {
-            _aiChoiceController = new AIChoiceController(_gameManager.AIAmount);
+            _aiChoiceController = new AIChoiceController(_gameManager.UnitsData.opponentUnits);
             _choiceResulter = new ChoiceResulter();
 
             _uiManager.Init(_mainCanvas);
@@ -38,6 +38,7 @@ namespace Controllers
         private async void InitLevel()
         {
             _level = await _levelManager.InstantiateLevel<Level_1>();
+            _level.Init(new LevelsArguments {UnitsData = _gameManager.UnitsData});
         }
 
         private async void ProceedAction(ActionChoice choice)

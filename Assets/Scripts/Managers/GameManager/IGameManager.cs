@@ -2,7 +2,6 @@
 {
     public interface IGameManager
     {
-        int AIAmount { get; }
-        string LevelID { get; }
+        public UnitsData UnitsData { get; }
     }
 }

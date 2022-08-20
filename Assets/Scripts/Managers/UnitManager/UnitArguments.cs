@@ -1,8 +1,8 @@
 ﻿namespace Managers
 {
-    public class LevelsArguments
+    public class UnitArguments
     {
         public AssetsLoader AssetsLoader;
-        public UnitsData UnitsData;
+        public float Speed;
     }
 }
