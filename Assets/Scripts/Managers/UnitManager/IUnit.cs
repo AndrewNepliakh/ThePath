@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using UnityEngine;
 
 namespace Managers
 {
@@ -6,7 +6,7 @@ namespace Managers
     {
         public UnitSide UnitSide { get; }
         public void Init(UnitArguments args);
-        
+
         void Move(Vector3 coordinates);
         public void Dispose();
     }

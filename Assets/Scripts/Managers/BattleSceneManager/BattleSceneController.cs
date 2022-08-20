@@ -18,8 +18,7 @@ namespace Controllers
 
         private ChooseActionWindow _actionWindow;
         private ResultWindow _resultWindow;
-
-        private AssetsLoader _levelLoader;
+        
         private Level _level;
 
         private async void Awake()
