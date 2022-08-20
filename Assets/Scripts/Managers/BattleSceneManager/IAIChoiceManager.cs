@@ -1,6 +1,6 @@
 ﻿namespace Controllers
 {
-    public interface IAIChoiceController
+    public interface IAIChoiceManager
     {
         ActionChoice GetChoices();
     }

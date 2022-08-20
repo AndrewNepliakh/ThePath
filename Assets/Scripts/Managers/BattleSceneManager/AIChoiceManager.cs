@@ -3,11 +3,11 @@ using Random = UnityEngine.Random;
 
 namespace Controllers
 {
-    public class AIChoiceController : IAIChoiceController
+    public class IaiChoiceManager : IAIChoiceManager
     {
         private readonly ActionType[] _aiChoices; 
             
-        public AIChoiceController(int aiAmount)
+        public IaiChoiceManager(int aiAmount)
         {
             _aiChoices = new ActionType[aiAmount];
         }

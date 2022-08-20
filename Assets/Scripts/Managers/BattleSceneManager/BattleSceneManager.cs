@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Controllers
 {
-    public class BattleSceneController : MonoBehaviour
+    public class BattleSceneManager : MonoBehaviour
     {
         [Inject] private ILevelManager _levelManager;
         [Inject] private IGameManager _gameManager;
@@ -13,7 +13,7 @@ namespace Controllers
 
         [SerializeField] private Canvas _mainCanvas;
 
-        private IAIChoiceController _aiChoiceController;
+        private IAIChoiceManager _iaiChoiceManager;
         private IChoiceResulter _choiceResulter;
 
         private ChooseActionWindow _actionWindow;
@@ -23,7 +23,7 @@ namespace Controllers
 
         private async void Awake()
         {
-            _aiChoiceController = new AIChoiceController(_gameManager.UnitsData.opponentUnits);
+            _iaiChoiceManager = new IaiChoiceManager(_gameManager.UnitsData.opponentUnits);
             _choiceResulter = new ChoiceResulter();
 
             _uiManager.Init(_mainCanvas);
@@ -42,7 +42,7 @@ namespace Controllers
 
         private async void ProceedAction(ActionChoice choice)
         {
-            var aiChoices = _aiChoiceController.GetChoices();
+            var aiChoices = _iaiChoiceManager.GetChoices();
             var result = _choiceResulter.GetResult(choice.ActionChoices, aiChoices.ActionChoices);
 
             var args = new ResultWindowArguments
