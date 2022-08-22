@@ -1,9 +1,10 @@
-﻿using Managers;
+﻿using System.Threading.Tasks;
+using Managers;
 
 public class ResultBattleState : IState<BattleStates>
 {
     public BattleStates State => BattleStates.Result;
-    public void Enter(ChangeStateData changeStateData = null)
+    public Task Enter(ChangeStateData changeStateData = null)
     {
         throw new System.NotImplementedException();
     }

@@ -1,5 +1,6 @@
-﻿using Managers;
-using UnityEngine;
+﻿using System;
+using System.Threading.Tasks;
+using Managers;
 using Zenject;
 
 
@@ -9,10 +10,13 @@ public class SetupBattleState :  IState<BattleStates>
     
     [Inject] private StateMachine<BattleStates> _battleStateMachine;
     [Inject] private SetupBattleStateController _controller;
-    
-    public void Enter(ChangeStateData changeStateData)
+
+    public Action OnStateComplete; 
+
+    public async Task Enter(ChangeStateData changeStateData)
     {
-        _controller.Init();
+        await _controller.Init();
+        OnStateComplete += StateCompleteHandler;
     }
     
     private void StateCompleteHandler()
@@ -22,6 +26,7 @@ public class SetupBattleState :  IState<BattleStates>
 
     public void Exit()
     {
+        OnStateComplete -= StateCompleteHandler;
     }
 
     public void Update(float deltaTime)

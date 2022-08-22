@@ -30,7 +30,7 @@ namespace Managers
                 var unit = await loader.InstantiateAssetWithDI<Unit>(typeof(Unit).ToString(), _diContainer);
                 _playerUnits[i] = unit;
 
-                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f};
+                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f, UnitSide = UnitSide.Player};
                 
                 _playerUnits[i].Init(args);
             }
@@ -41,7 +41,7 @@ namespace Managers
                 var unit = await loader.InstantiateAssetWithDI<Unit>(typeof(Unit).ToString(), _diContainer);
                 _opponentUnits[i] = unit;
                 
-                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f};
+                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f, UnitSide = UnitSide.Opponent};
                 
                 _opponentUnits[i].Init(args);
             }

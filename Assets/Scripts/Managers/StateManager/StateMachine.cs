@@ -20,13 +20,7 @@ namespace Managers
         protected readonly Dictionary<T, IState<T>> _states = new Dictionary<T, IState<T>>();
 
         public StateMachine() { }
-
-        void IDisposable.Dispose()
-        {
-            foreach (var iter in _states.Values)
-                iter.Dispose();
-        }
-
+        
         public void AddState(IState<T> state)
         {
             _states.Add(state.State, state);
@@ -68,9 +62,11 @@ namespace Managers
             foreach (var state in _states.Values) state.Exit();
         }
         
-        public class Factory : PlaceholderFactory<StateMachine<T>>
+        void IDisposable.Dispose()
         {
-            
+            foreach (var iter in _states.Values)
+                iter.Dispose();
         }
+
     }
 }

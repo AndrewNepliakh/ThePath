@@ -7,32 +7,35 @@ public class ChooseCoverButton : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private RectTransform _rectTransform;
-    private Action<Vector3> _onButtonClicked;
+    public Action<Vector3> OnButtonClicked;
     private Camera _camera;
-    private Vector3 _coverPosition;
+    private Cover _cover;
 
     private void Awake()
     {
         _camera = Camera.main;
-        _button.onClick.AddListener(OnButtonClicked);
     }
 
-    public void SetPosition(Transform cover)
+    private void OnEnable()
     {
-        _coverPosition = cover.position;
-        Debug.Log("Camera WorldToScreenPoint: " + _camera.WorldToScreenPoint(_coverPosition));
-        Debug.Log("_rectTransform.anchoredPosition: " + _rectTransform.anchoredPosition);
-        _rectTransform.anchoredPosition = _camera.WorldToScreenPoint(_coverPosition);
-        Debug.Log("_rectTransform.anchoredPosition: " + _rectTransform.anchoredPosition);
+        _button.onClick.AddListener(OnButtonClickedAdd);
     }
 
-    private void OnButtonClicked()
+    public void SetPosition(Cover cover)
     {
-        _onButtonClicked?.Invoke(_coverPosition);
+        _cover = cover;
+        _rectTransform.anchoredPosition = _camera.WorldToScreenPoint(cover.transform.position);
     }
 
-    public void OnButtonClicked(Action<Vector3> setUnitAtCover)
+    private void OnButtonClickedAdd()
     {
-        _onButtonClicked = setUnitAtCover;
+        OnButtonClicked?.Invoke(_cover.GetProperPosition());
     }
+    
+    private void OnDisable()
+    {
+        _button.onClick.RemoveListener(OnButtonClickedAdd);
+    }
+
+    
 }

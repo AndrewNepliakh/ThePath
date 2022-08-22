@@ -2,12 +2,11 @@
 using Controllers;
 using Managers;
 using UnityEngine;
-using Zenject;
-
 
 public class SetupBattleWindow : Window
 {
     private BattleSceneManager _battleSceneManager;
+    private SetupBattleState _state;
 
     private Unit _player;
     private List<Cover> _covers;
@@ -19,6 +18,7 @@ public class SetupBattleWindow : Window
         base.Show(arguments);
 
         _battleSceneManager = ((SetupBattleWindowArguments) arguments).BattleSceneManager;
+        _state = ((SetupBattleWindowArguments) arguments).SetupBattleState;
         
         _player = _battleSceneManager.Level.Units.playerUnits[0];
         _covers = _battleSceneManager.Level.Covers;
@@ -35,8 +35,8 @@ public class SetupBattleWindow : Window
         {
             var assetLoader = new AssetsLoader();
             var button = await assetLoader.InstantiateAsset<ChooseCoverButton>(transform);
-            button.SetPosition(cover.transform);
-            button.OnButtonClicked(SetUnitAtCover);
+            button.SetPosition(cover);
+            button.OnButtonClicked += SetUnitAtCover;
             _buttons.Add(button);
         }
     }
@@ -44,5 +44,13 @@ public class SetupBattleWindow : Window
     private void SetUnitAtCover(Vector3 position)
     {
         _player.transform.position = position;
+
+        foreach (var button in _buttons)
+        {
+            button.OnButtonClicked -= SetUnitAtCover;
+            button.gameObject.SetActive(false);
+        }
+        
+        _state.OnStateComplete?.Invoke();
     }
 }

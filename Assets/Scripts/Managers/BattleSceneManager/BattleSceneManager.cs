@@ -25,61 +25,18 @@ namespace Controllers
         [Inject]
         private void Instantiation(
             SetupBattleState setupBattleState, 
-            ChoiceActionState choiceActionState,
+            ChoiceActionBattleState choiceActionBattleState,
             ActionBattleState actionBattleState,
             ResultBattleState resultBattleState)
         {
             _uiManager.Init(_mainCanvas);
             
             _gameStateMachine.AddState(setupBattleState);
-            _gameStateMachine.AddState(choiceActionState);
+            _gameStateMachine.AddState(choiceActionBattleState);
             _gameStateMachine.AddState(actionBattleState);
             _gameStateMachine.AddState(resultBattleState);
 
             _gameStateMachine.ChangeState(_startGameState);
         }
-
-
-        // private IAIChoiceManager _iaiChoiceManager;
-        // private IChoiceResulter _choiceResulter;
-        //
-        // private ChooseActionWindow _actionWindow;
-        // private ResultWindow _resultWindow;
-        //
-        //
-        // private async void Awake()
-        // {
-        //     _iaiChoiceManager = new IaiChoiceManager(_gameManager.UnitsData.opponentUnits);
-        //     _choiceResulter = new ChoiceResulter();
-        //
-        //     _uiManager.Init(_mainCanvas);
-        //
-        //     _actionWindow = await _uiManager.ShowWindow<ChooseActionWindow>();
-        //     _actionWindow.OnChooseAction += ProceedAction;
-        //
-        //     InitLevel();
-        // }
-        //
-
-        //
-        // private async void ProceedAction(ActionChoice choice)
-        // {
-        //     var aiChoices = _iaiChoiceManager.GetChoices();
-        //     var result = _choiceResulter.GetResult(choice.ActionChoices, aiChoices.ActionChoices);
-        //
-        //     var args = new ResultWindowArguments
-        //     {
-        //         Message = result + " Opponent choose " + aiChoices.ActionChoices[0] + 
-        //                   " , You choose " + choice.ActionChoices[0]
-        //     };
-        //     
-        //     _resultWindow = await _uiManager.ShowWindow<ResultWindow>(args);
-        //     _resultWindow.OnContinueClicked += Continue;
-        // }
-        //
-        // private async void Continue()
-        // {
-        //     await _uiManager.ShowWindow<ChooseActionWindow>();
-        // }
     }
 }

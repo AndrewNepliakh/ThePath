@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Managers
 {
     public class BattleState : IState<GameStates>
@@ -9,7 +11,7 @@ namespace Managers
             throw new System.NotImplementedException();
         }
 
-        public void Enter(ChangeStateData changeStateData)
+        public Task Enter(ChangeStateData changeStateData)
         {
             throw new System.NotImplementedException();
         }

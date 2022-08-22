@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
+using System.Threading.Tasks;
 
 namespace Managers
 {
@@ -14,7 +11,7 @@ namespace Managers
             throw new NotImplementedException();
         }
 
-        public void Enter(ChangeStateData changeStateData)
+        public Task Enter(ChangeStateData changeStateData)
         {
             throw new NotImplementedException();
         }
