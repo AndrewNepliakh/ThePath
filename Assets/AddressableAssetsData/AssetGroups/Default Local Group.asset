@@ -33,6 +33,14 @@ MonoBehaviour:
     m_Address: Unit
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6cdde64fb77f49247b5c3be64d960251
+    m_Address: SetupBattleWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a67cac349d80b3640a24664583f66213
+    m_Address: ChooseCoverButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8f706866ab11d684395334177d339d78, type: 2}
   m_SchemaSet:

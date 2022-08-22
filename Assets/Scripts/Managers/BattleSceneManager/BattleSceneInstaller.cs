@@ -10,7 +10,12 @@ public class BattleSceneInstaller : MonoInstaller
     {
         Container.Bind<BattleSceneManager>().FromInstance(_battleSceneManager).AsSingle().NonLazy();
         Container.Bind<StateMachine<BattleStates>>().AsSingle().NonLazy();
+        
         Container.Bind<SetupBattleState>().AsSingle().NonLazy();
         Container.Bind<ChoiceActionState>().AsSingle().NonLazy();
+        Container.Bind<ActionBattleState>().AsSingle().NonLazy();
+        Container.Bind<ResultBattleState>().AsSingle().NonLazy();
+        
+        Container.Bind<SetupBattleStateController>().AsSingle().NonLazy();
     }
 }

@@ -8,10 +8,11 @@ public class SetupBattleState :  IState<BattleStates>
     public BattleStates State => BattleStates.Setup;
     
     [Inject] private StateMachine<BattleStates> _battleStateMachine;
+    [Inject] private SetupBattleStateController _controller;
     
     public void Enter(ChangeStateData changeStateData)
     {
-       StateCompleteHandler();
+        _controller.Init();
     }
     
     private void StateCompleteHandler()

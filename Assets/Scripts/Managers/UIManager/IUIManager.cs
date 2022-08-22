@@ -9,6 +9,9 @@ namespace Managers
 
         Task<T> ShowWindow<T>(UIViewArguments args = null) where T : Window;
 
+        Task<T> ShowWindowWithDI<T>(UIViewArguments args = null)
+            where T : Window;
+
         void HideWindow(UIViewArguments args = null);
     }
 }

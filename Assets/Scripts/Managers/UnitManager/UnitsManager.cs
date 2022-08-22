@@ -8,8 +8,8 @@ namespace Managers
     {
         [Inject] private DiContainer _diContainer;
         
-        private IUnit[] _playerUnits;
-        private IUnit[] _opponentUnits;
+        private Unit[] _playerUnits;
+        private Unit[] _opponentUnits;
 
         private UnitsData _unitsData;
         private int _allUnits;
@@ -17,8 +17,8 @@ namespace Managers
         public void Init(UnitsData unitsData)
         {
             _unitsData = unitsData;
-            _playerUnits = new IUnit[unitsData.playerUnits];
-            _opponentUnits = new IUnit[unitsData.opponentUnits];
+            _playerUnits = new Unit[unitsData.playerUnits];
+            _opponentUnits = new Unit[unitsData.opponentUnits];
             _allUnits = _playerUnits.Length + _opponentUnits.Length;
         }
 
@@ -53,7 +53,7 @@ namespace Managers
     [Serializable]
     public class UnitsList
     {
-        public IUnit[] playerUnits;
-        public IUnit[] opponentUnits;
+        public Unit[] playerUnits;
+        public Unit[] opponentUnits;
     }
 }

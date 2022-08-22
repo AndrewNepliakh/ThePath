@@ -15,7 +15,7 @@ namespace Managers
             if (args == null) args = new LevelsArguments {AssetsLoader = loader};
             else args.AssetsLoader = loader;
             
-            level.Init(args);
+            await level.Init(args);
             
             return level;
         }

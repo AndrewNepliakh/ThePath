@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Controllers
 {
     public class BattleSceneManager : MonoBehaviour
     {
+        public Level Level => _level;
+
         [Inject] private ILevelManager _levelManager;
         [Inject] private IGameManager _gameManager;
         [Inject] private IUIManager _uiManager;
@@ -15,13 +18,23 @@ namespace Controllers
 
         [SerializeField] private Canvas _mainCanvas;
 
-        private BattleStates _startGameState;
+        private readonly BattleStates _startGameState = BattleStates.Setup;
+        private Level _level;
+        public void SetLevel(Level level) => _level = level;
 
         [Inject]
-        private void InitStateMachine(SetupBattleState setupBattleState, ChoiceActionState choiceActionState)
+        private void Instantiation(
+            SetupBattleState setupBattleState, 
+            ChoiceActionState choiceActionState,
+            ActionBattleState actionBattleState,
+            ResultBattleState resultBattleState)
         {
+            _uiManager.Init(_mainCanvas);
+            
             _gameStateMachine.AddState(setupBattleState);
             _gameStateMachine.AddState(choiceActionState);
+            _gameStateMachine.AddState(actionBattleState);
+            _gameStateMachine.AddState(resultBattleState);
 
             _gameStateMachine.ChangeState(_startGameState);
         }
@@ -33,7 +46,6 @@ namespace Controllers
         // private ChooseActionWindow _actionWindow;
         // private ResultWindow _resultWindow;
         //
-        // private Level _level;
         //
         // private async void Awake()
         // {
@@ -48,10 +60,7 @@ namespace Controllers
         //     InitLevel();
         // }
         //
-        // private async void InitLevel()
-        // {
-        //     _level = await _levelManager.InstantiateLevel<Level_1>(new LevelsArguments {UnitsData = _gameManager.UnitsData});
-        // }
+
         //
         // private async void ProceedAction(ActionChoice choice)
         // {

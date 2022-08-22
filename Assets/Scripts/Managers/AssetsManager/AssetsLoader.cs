@@ -17,11 +17,12 @@ namespace Managers
             return TryGetComponent<T>();;
         }
         
-        public async Task<T> InstantiateAssetWithDI<T>(string ID, DiContainer diContainer)
+        public async Task<T> InstantiateAssetWithDI<T>(string ID, DiContainer diContainer, Transform parent = null)
         {
             var handle = Addressables.LoadAssetAsync<GameObject>(ID);
             var prefab = await handle.Task;
             _cachedObject = diContainer.InstantiatePrefab(prefab);
+            if(parent != null) _cachedObject.transform.SetParent(parent);
             return TryGetComponent<T>();
         }
 
