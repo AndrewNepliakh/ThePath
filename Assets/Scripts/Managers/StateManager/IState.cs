@@ -5,10 +5,13 @@ using UnityEngine;
 
 namespace Managers
 {
-    public interface IState
+    public interface IState<T> : IDisposable where T : Enum 
     {
-        public void Enter();
-        public void Exit();
-        public void Update();
+        T State { get; }
+
+        void Enter();
+        void Enter(ChangeStateData changeStateData);
+        void Exit();
+        void Update(float deltaTime);
     }
 }
