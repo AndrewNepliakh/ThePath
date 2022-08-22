@@ -8,9 +8,7 @@ namespace Managers
     public interface IState<T> : IDisposable where T : Enum 
     {
         T State { get; }
-
-        void Enter();
-        void Enter(ChangeStateData changeStateData);
+        void Enter(ChangeStateData changeStateData = null);
         void Exit();
         void Update(float deltaTime);
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using Zenject;
 
 namespace Managers
@@ -65,6 +66,11 @@ namespace Managers
         public void ExitAllStates()
         {
             foreach (var state in _states.Values) state.Exit();
+        }
+        
+        public class Factory : PlaceholderFactory<StateMachine<T>>
+        {
+            
         }
     }
 }
