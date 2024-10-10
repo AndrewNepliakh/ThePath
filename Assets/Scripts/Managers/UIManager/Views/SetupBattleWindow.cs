@@ -34,8 +34,8 @@ public class SetupBattleWindow : Window
         foreach (var cover in availableCovers)
         {
             var assetLoader = new AssetsLoader();
-            var button = await assetLoader.InstantiateAsset<ChooseCoverButton>(transform);
-            button.SetPosition(cover);
+            var button = await assetLoader.InstantiateAsset<ChooseCoverButton>(transform, true);
+            button.SetPosition(cover, transform.GetComponent<RectTransform>());
             button.OnButtonClicked += SetUnitAtCover;
             _buttons.Add(button);
         }

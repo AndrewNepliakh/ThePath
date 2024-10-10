@@ -10,9 +10,9 @@ namespace Managers
     {
         private GameObject _cachedObject;
 
-        public async Task<T> InstantiateAsset<T>(Transform parent = null)
+        public async Task<T> InstantiateAsset<T>(Transform parent = null, bool instantiateInWorldSpace = false)
         {
-            var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent);
+            var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent, instantiateInWorldSpace);
             _cachedObject = await handle.Task;
             return TryGetComponent<T>();;
         }

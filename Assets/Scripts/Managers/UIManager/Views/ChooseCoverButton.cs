@@ -21,10 +21,14 @@ public class ChooseCoverButton : MonoBehaviour
         _button.onClick.AddListener(OnButtonClickedAdd);
     }
 
-    public void SetPosition(Cover cover)
+    public void SetPosition(Cover cover, RectTransform parentRect)
     {
         _cover = cover;
-        _rectTransform.anchoredPosition = _camera.WorldToScreenPoint(cover.transform.position);
+        var yOffset = _cover.transform.localScale.y;
+        var worldToScreenPoint = _camera.WorldToScreenPoint(cover.transform.position + Vector3.up * yOffset);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect, worldToScreenPoint, null, out var localPoint);
+        _rectTransform.anchoredPosition = localPoint;
     }
 
     private void OnButtonClickedAdd()
