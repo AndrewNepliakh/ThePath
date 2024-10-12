@@ -1,17 +1,20 @@
-﻿using Managers;
+﻿using Controllers;
+using Managers;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Unit : MonoBehaviour, IUnit
 {
     private const float DEFAULT_OPPONENT_Z_POSITION = 29.0f;
-    public UnitSide UnitSide => _unitSide;
 
     [SerializeField] private Animator _animator;
     [SerializeField] private UnitMover _mover;
-
+    
     private UnitSide _unitSide;
     private AssetsLoader _assetsLoader;
+    
+    public UnitSide UnitSide => _unitSide;
+    
+    public ActionType ActionChoice { get; set; }
 
     public void Init(UnitArguments args)
     {

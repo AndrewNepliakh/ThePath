@@ -11,7 +11,6 @@ public class SetupBattleStateController : IBattleStateController
     [Inject] private IGameManager _gameManager;
     [Inject] private IUIManager _uiManager;
 
-
     public async Task Init()
     {
         _state.OnStateComplete += OnStateComplete;

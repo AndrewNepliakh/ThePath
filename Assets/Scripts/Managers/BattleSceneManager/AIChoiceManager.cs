@@ -1,5 +1,4 @@
-﻿using Unity.Mathematics;
-using Random = UnityEngine.Random;
+﻿using Random = UnityEngine.Random;
 
 namespace Controllers
 {
@@ -12,14 +11,9 @@ namespace Controllers
             _aiChoices = new ActionType[aiAmount];
         }
 
-        public ActionChoice GetChoices()
+        public ActionType GetChoices()
         {
-            for (var i = 0; i < _aiChoices.Length; i++)
-            {
-                _aiChoices[i] = (ActionType)Random.Range(0, 3);
-            }
-
-            return new ActionChoice {ActionChoices = _aiChoices};
+            return (ActionType)Random.Range(0, 3);
         }
     }
 }

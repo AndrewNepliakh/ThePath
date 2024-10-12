@@ -2,6 +2,6 @@
 {
     public interface IAIChoiceManager
     {
-        ActionChoice GetChoices();
+        ActionType GetChoices();
     }
 }

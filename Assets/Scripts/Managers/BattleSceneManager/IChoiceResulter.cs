@@ -2,6 +2,6 @@
 {
     public interface IChoiceResulter
     {
-        string GetResult(ActionType[] playerChoices, ActionType[] aiChoices);
+        string GetResult(ActionType playerChoice, ActionType aiChoice);
     }
 }

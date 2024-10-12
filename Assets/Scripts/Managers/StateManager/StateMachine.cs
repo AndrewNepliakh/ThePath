@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
-using Zenject;
 
 namespace Managers
 {
@@ -67,6 +64,5 @@ namespace Managers
             foreach (var iter in _states.Values)
                 iter.Dispose();
         }
-
     }
 }

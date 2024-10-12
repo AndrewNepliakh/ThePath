@@ -1,5 +1,3 @@
-using System;
-using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
 using Zenject;
@@ -19,7 +17,9 @@ namespace Controllers
         [SerializeField] private Canvas _mainCanvas;
 
         private readonly BattleStates _startGameState = BattleStates.Setup;
+        
         private Level _level;
+        
         public void SetLevel(Level level) => _level = level;
 
         [Inject]

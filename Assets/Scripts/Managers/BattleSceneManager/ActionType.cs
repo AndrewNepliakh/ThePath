@@ -1,12 +1,8 @@
 ﻿namespace Controllers
 {
-    public class ActionChoice
-    {
-        public ActionType[] ActionChoices;
-    }
-
     public enum ActionType
     {
+        None,
         Attack,
         Move, 
         Cover

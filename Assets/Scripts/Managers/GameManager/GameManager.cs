@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Managers
 {
     public class GameManager : IGameManager

@@ -4,9 +4,9 @@ namespace Controllers
 {
     public class ChoiceResulter : IChoiceResulter
     {
-        public string GetResult(ActionType[] playerChoices, ActionType[] aiChoices)
+        public string GetResult(ActionType playerChoices, ActionType aiChoices)
         {
-            return CompareChoices(playerChoices[0], aiChoices[0]) switch
+            return CompareChoices(playerChoices, aiChoices) switch
             {
                 WinnerType.NON => "The game ended in a draw... ".ToUpper(),
                 WinnerType.Player => "You win!!!".ToUpper(),

@@ -9,6 +9,5 @@ public class GlobalMonoInstaller : MonoInstaller
         Container.Bind<IUnitsManager>().To<UnitsManager>().AsSingle().NonLazy();
         Container.Bind<IGameManager>().To<GameManager>().AsSingle().NonLazy();
         Container.Bind<IUIManager>().To<UIManager>().AsSingle().NonLazy();
-       
     }
 }
