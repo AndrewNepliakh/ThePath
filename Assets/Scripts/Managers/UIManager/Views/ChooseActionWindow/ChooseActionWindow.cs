@@ -9,10 +9,12 @@ using System.Collections.Generic;
 public class ChooseActionWindow : Window
 {
     public event Action<ActionType> OnChooseAction;
+    public event Action OnConfirmActionPhase;
 
     [SerializeField] private Button _attackButton;
     [SerializeField] private Button _moveButton;
     [SerializeField] private Button _coverButton;
+    [SerializeField] private Button _confirmButton;
     
     [Space(10)]
     [SerializeField] private List<ChooseActionWindowButtonsContainer> _buttonsContainers = new ();
@@ -30,9 +32,10 @@ public class ChooseActionWindow : Window
         _attackButton.onClick.AddListener(OnAttackButtonClicked);
         _moveButton.onClick.AddListener(OnMoveButtonClicked);
         _coverButton.onClick.AddListener(OnCoverButtonClicked);
+        _confirmButton.onClick.AddListener(OnConfirmActionButtonClicked);
     }
 
-    private void SwitchButtonContainers(ActionButtonContainerType type)
+    public void SwitchButtonContainers(ActionButtonContainerType type)
     {
         foreach (var buttonContainer in _buttonsContainers)
             buttonContainer.SetActive(false);
@@ -64,6 +67,11 @@ public class ChooseActionWindow : Window
     {
         OnChooseAction?.Invoke(ActionType.Cover);
     }
+    
+    private void OnConfirmActionButtonClicked()
+    {
+        OnConfirmActionPhase?.Invoke();
+    }
 
     public override void Hide(UIViewArguments arguments = null)
     {
@@ -71,5 +79,6 @@ public class ChooseActionWindow : Window
         _attackButton.onClick.RemoveListener(OnAttackButtonClicked);
         _moveButton.onClick.RemoveListener(OnMoveButtonClicked);
         _coverButton.onClick.RemoveListener(OnCoverButtonClicked);
+        _confirmButton.onClick.RemoveListener(OnConfirmActionButtonClicked);
     }
 }

@@ -25,9 +25,10 @@ namespace Controllers
             
             _actionWindow = await _uiManager.ShowWindow<ChooseActionWindow>();
             _actionWindow.OnChooseAction += ProceedAction;
+            _actionWindow.OnConfirmActionPhase += ConfirmActionPhase;
         }
         
-        private async void ProceedAction(ActionType choice)
+        private void ProceedAction(ActionType choice)
         {
             var playerUnits = _battleSceneManager.Level.Units.playerUnits;
             
@@ -36,27 +37,34 @@ namespace Controllers
                 playerUnits.First(unit => unit.ActionChoice == ActionType.None).SetActionChoice(choice);
                 if(playerUnits.Any(unit => unit.ActionChoice == ActionType.None)) return;
             }
-            
+
+            _actionWindow.SwitchButtonContainers(ActionButtonContainerType.EndActionPhase);
+        }
+
+        private async void ConfirmActionPhase()
+        {
+            var playerUnits = _battleSceneManager.Level.Units.playerUnits;
             var opponentUnits = _battleSceneManager.Level.Units.opponentUnits;
             
             var aiChoice = _iaiChoiceManager.GetChoices();
-            var result = _choiceResulter.GetResult(choice, aiChoice);
+            var result = _choiceResulter.GetResult(playerUnits[0].ActionChoice, aiChoice);
         
             var args = new ResultWindowArguments
             {
                 Message = result + " Opponent choose " + aiChoice + 
-                          " , You choose " + choice
+                          " , You choose " + playerUnits[0].ActionChoice
             };
             
             _resultWindow = await _uiManager.ShowWindow<ResultWindow>(args);
             _resultWindow.OnContinueClicked += OnStateComplete;
         }
-        
+
         private void OnStateComplete()
         {
             _state.OnStateComplete?.Invoke();
             _resultWindow.OnContinueClicked -= OnStateComplete;
             _actionWindow.OnChooseAction -= ProceedAction;
+            _actionWindow.OnConfirmActionPhase -= ConfirmActionPhase;
         }
     }
 }

@@ -664,6 +664,7 @@ MonoBehaviour:
   _attackButton: {fileID: 6528961591367124537}
   _moveButton: {fileID: 6528961591929032271}
   _coverButton: {fileID: 6528961591824151305}
+  _confirmButton: {fileID: 1259679009430592409}
   _buttonsContainers:
   - {fileID: 2594043547402784494}
   - {fileID: 4913089885190397555}
