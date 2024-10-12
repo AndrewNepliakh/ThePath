@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using Zenject;
 using Managers;
-using UnityEngine;
-using Zenject;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Controllers
 {
@@ -34,7 +33,7 @@ namespace Controllers
             
             if (playerUnits.Any(unit => unit.ActionChoice == ActionType.None))
             {
-                playerUnits.First(unit => unit.ActionChoice == ActionType.None).ActionChoice = choice;
+                playerUnits.First(unit => unit.ActionChoice == ActionType.None).SetActionChoice(choice);
                 if(playerUnits.Any(unit => unit.ActionChoice == ActionType.None)) return;
             }
             

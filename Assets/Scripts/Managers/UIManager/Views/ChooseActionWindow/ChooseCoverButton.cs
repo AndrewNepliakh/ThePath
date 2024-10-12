@@ -33,6 +33,7 @@ public class ChooseCoverButton : MonoBehaviour
 
     private void OnButtonClickedAdd()
     {
+        gameObject.SetActive(false);
         OnButtonClicked?.Invoke(_cover.GetProperPosition());
     }
     

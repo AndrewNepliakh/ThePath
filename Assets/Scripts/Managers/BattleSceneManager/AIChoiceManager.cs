@@ -13,7 +13,7 @@ namespace Controllers
 
         public ActionType GetChoices()
         {
-            return (ActionType)Random.Range(0, 3);
+            return (ActionType)Random.Range(1, 4);
         }
     }
 }

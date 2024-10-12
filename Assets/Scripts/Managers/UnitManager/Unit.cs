@@ -1,6 +1,8 @@
 ﻿using Controllers;
 using Managers;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour, IUnit
 {
@@ -8,23 +10,67 @@ public class Unit : MonoBehaviour, IUnit
 
     [SerializeField] private Animator _animator;
     [SerializeField] private UnitMover _mover;
+
+    [Space(10)] 
+    [SerializeField] private GameObject _choceCanvas;
+    [SerializeField] private TMP_Text _choceText;
+    [SerializeField] private Image _choceTextImage;
     
-    private UnitSide _unitSide;
     private AssetsLoader _assetsLoader;
     
-    public UnitSide UnitSide => _unitSide;
+    private bool _isSetStartPosition;
     
-    public ActionType ActionChoice { get; set; }
+    private UnitSide _unitSide;
+    private ActionType _actionChoice;
+    
+    public UnitSide UnitSide => _unitSide;
 
+    public ActionType ActionChoice => _actionChoice;
+
+    public bool IsSetStartPosition => _isSetStartPosition;
+    
     public void Init(UnitArguments args)
     {
         _assetsLoader = args.AssetsLoader;
         _unitSide = args.UnitSide;
         
+        _choceCanvas.SetActive(false);
+        
         _mover.Init(new UnitMoverArguments {Speed = args.Speed});
 
         if (_unitSide == UnitSide.Opponent)
             transform.position = new Vector3(transform.position.x, transform.position.y, DEFAULT_OPPONENT_Z_POSITION);
+    }
+
+    public void SetStartPosition(Vector3 position)
+    {
+        transform.position = position;
+        _isSetStartPosition = true;
+    }
+    
+    public void SetActionChoice(ActionType actionType)
+    {
+        _actionChoice = actionType;
+        _choceCanvas.SetActive(true);
+
+        switch (actionType)
+        {
+            case ActionType.Attack:
+                SetChoiceLabel("Attack", new Color(1.0f, 0.5f, 0.5f));
+                break;
+            case ActionType.Move:
+                SetChoiceLabel("Move", new Color(0.5f, 0.8f, 1.0f));
+                break;
+            case ActionType.Cover:
+                SetChoiceLabel("Cover", new Color(1.0f, 1.0f, 0.7f));
+                break;
+        }
+    }
+
+    private void SetChoiceLabel(string text, Color color)
+    {
+        _choceText.text = text;
+        _choceTextImage.color = color;
     }
 
     public void Attack()
