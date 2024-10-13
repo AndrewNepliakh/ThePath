@@ -17,33 +17,39 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 552c31fd948b7f3479353d3f2ca38236
   m_SerializeEntries:
-  - m_GUID: cad7ea7f8bf32c74fad6a0d743cb5fc6
-    m_Address: ChooseActionWindow
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4731c720d83015547bf7821040c5d3fb
-    m_Address: ResultWindow
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2633cd553f774ec4cbdd0437a6629c84
-    m_Address: Level_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 202a32946a5714e4a8ec739c36d756c4
     m_Address: Unit
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2633cd553f774ec4cbdd0437a6629c84
+    m_Address: Level_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4731c720d83015547bf7821040c5d3fb
+    m_Address: UI.ResultWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6cdde64fb77f49247b5c3be64d960251
-    m_Address: SetupBattleWindow
+    m_Address: UI.SetupBattleWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a67cac349d80b3640a24664583f66213
-    m_Address: ChooseCoverButton
+    m_Address: UI.ChooseCoverButton
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cad7ea7f8bf32c74fad6a0d743cb5fc6
+    m_Address: UI.ChooseActionWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8f706866ab11d684395334177d339d78, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: a390656000eae6049b4eea1d0d378a04, type: 2}
     - {fileID: 11400000, guid: cf33fd89c6dda1e4a8144642a0142685, type: 2}
+    - {fileID: 11400000, guid: a390656000eae6049b4eea1d0d378a04, type: 2}
