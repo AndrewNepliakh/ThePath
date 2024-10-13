@@ -66,10 +66,18 @@ namespace Managers
 
             var middleValue = initialRange[range / 2];
             var middleRange = new int[range];
-            
-            for (var i = 0; i < range; i++)
-                middleRange[i] = (initialRange[i] - middleValue) * 2;
-            
+
+            if (range % 2 == 0)
+            {
+                for (var i = 0; i < range; i++)
+                    middleRange[i] = ((initialRange[i] - middleValue) * 2) + 1;
+            }
+            else
+            {
+                for (var i = 0; i < range; i++)
+                    middleRange[i] = (initialRange[i] - middleValue) * 2;
+            }
+
             return middleRange;
         }
     }
