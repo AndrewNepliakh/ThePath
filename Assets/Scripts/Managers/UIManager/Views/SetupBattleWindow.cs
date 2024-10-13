@@ -49,11 +49,11 @@ namespace UI
         {
             var playerUnits = _battleSceneManager.Level.Units.playerUnits;
                 
-            if (playerUnits.Any(unit => unit.IsSetStartPosition is false))
+            if (playerUnits.Any(unit => unit.IsSetCoverPosition is false))
             {
-                var playerUnit = playerUnits.First(unit => unit.IsSetStartPosition is false);
-                playerUnit.SetStartPosition(position);
-                if(playerUnits.Any(unit => unit.IsSetStartPosition is false)) return;
+                var playerUnit = playerUnits.First(unit => unit.IsSetCoverPosition is false);
+                playerUnit.SetCoverPosition(position);
+                if(playerUnits.Any(unit => unit.IsSetCoverPosition is false)) return;
             }
     
             foreach (var button in _buttons)

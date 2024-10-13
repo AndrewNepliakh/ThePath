@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour, IUnit
     
     private AssetsLoader _assetsLoader;
     
-    private bool _isSetStartPosition;
+    private bool _isSetCoverPosition;
     
     private UnitSide _unitSide;
     private ActionType _actionChoice;
@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour, IUnit
 
     public ActionType ActionChoice => _actionChoice;
 
-    public bool IsSetStartPosition => _isSetStartPosition;
+    public bool IsSetCoverPosition => _isSetCoverPosition;
     
     public void Init(UnitArguments args)
     {
@@ -41,11 +41,16 @@ public class Unit : MonoBehaviour, IUnit
         if (_unitSide == UnitSide.Opponent)
             transform.position = new Vector3(transform.position.x, transform.position.y, DEFAULT_OPPONENT_Z_POSITION);
     }
-
+    
     public void SetStartPosition(Vector3 position)
     {
         transform.position = position;
-        _isSetStartPosition = true;
+    }
+
+    public void SetCoverPosition(Vector3 position)
+    {
+        transform.position = position;
+        _isSetCoverPosition = true;
     }
     
     public void SetActionChoice(ActionType actionType)

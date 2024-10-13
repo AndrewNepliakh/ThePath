@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Zenject;
+using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Managers
 {
@@ -17,8 +18,8 @@ namespace Managers
         public void Init(UnitsData unitsData)
         {
             _unitsData = unitsData;
-            _playerUnits = new Unit[unitsData.playerUnits];
-            _opponentUnits = new Unit[unitsData.opponentUnits];
+            _playerUnits = new Unit[_unitsData.playerUnits];
+            _opponentUnits = new Unit[_unitsData.opponentUnits];
             _allUnits = _playerUnits.Length + _opponentUnits.Length;
         }
 
@@ -28,6 +29,7 @@ namespace Managers
             {
                 var loader = new AssetsLoader();
                 var unit = await loader.InstantiateAssetWithDI<Unit>(typeof(Unit).ToString(), _diContainer);
+                unit.SetStartPosition(GetPlayerUnitsStartPosition(i));
                 _playerUnits[i] = unit;
 
                 var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f, UnitSide = UnitSide.Player};
@@ -47,6 +49,28 @@ namespace Managers
             }
 
             return new UnitsList {playerUnits = _playerUnits, opponentUnits = _opponentUnits};
+        }
+        
+        private Vector3 GetPlayerUnitsStartPosition(int index)
+        {
+            var range = GetMiddleRange(_playerUnits.Length);
+            return Vector3.right * range[index];
+        }
+
+        private int[] GetMiddleRange(int range)
+        {
+            var initialRange = new int[range];
+
+            for (var i = 0; i < range; i++)
+                initialRange[i] = i + 1;
+
+            var middleValue = initialRange[range / 2];
+            var middleRange = new int[range];
+            
+            for (var i = 0; i < range; i++)
+                middleRange[i] = (initialRange[i] - middleValue) * 2;
+            
+            return middleRange;
         }
     }
 
