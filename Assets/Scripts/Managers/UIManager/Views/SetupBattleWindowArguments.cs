@@ -1,6 +1,6 @@
 ﻿using Controllers;
 
-namespace Managers
+namespace UI
 {
     public class SetupBattleWindowArguments : UIViewArguments
     {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Managers;
 
-namespace Managers
+namespace UI
 {
     public interface IUIView
     {

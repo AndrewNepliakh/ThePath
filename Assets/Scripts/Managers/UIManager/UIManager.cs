@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Managers;
 using UnityEngine;
 using Zenject;
 
-namespace Managers
+namespace UI
 {
     public class UIManager : IUIManager
     {

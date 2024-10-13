@@ -1,4 +1,6 @@
-﻿namespace Managers
+﻿using Managers;
+
+namespace UI
 {
     public class UIViewArguments
     {

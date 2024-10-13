@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Managers
+namespace UI
 {
     public interface IUIManager
     {

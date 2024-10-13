@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Managers;
+using UnityEngine;
 
-namespace Managers
+namespace UI
 {
     public abstract class Window : MonoBehaviour, IUIView
     {

@@ -1,4 +1,4 @@
-﻿namespace Managers
+﻿namespace UI
 {
     public class ResultWindowArguments : UIViewArguments
     {

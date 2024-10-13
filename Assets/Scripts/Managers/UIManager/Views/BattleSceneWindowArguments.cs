@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Managers
+namespace UI
 {
     public class BattleSceneWindowArguments : UIViewArguments
     {
