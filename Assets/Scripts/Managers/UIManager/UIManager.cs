@@ -63,9 +63,7 @@ namespace UI
             if (!_viewsPool.ContainsKey(typeof(T)))
             {
                 var loader = new AssetsLoader();
-                Debug.Log("___newWindow");
                 var newWindow = await loader.InstantiateAssetWithDI<T>(typeof(T).ToString(), _diContainer, _mainCanvas.transform);
-                Debug.Log("newWindow___");
                 _currentWindow = newWindow;
                 _viewsPool.Add(typeof(T), _currentWindow);
                 

@@ -18,9 +18,4 @@ public class ResultBattleState : IState<BattleStates>
     {
         throw new System.NotImplementedException();
     }
-    
-    public void Dispose()
-    {
-        throw new System.NotImplementedException();
-    }
 }

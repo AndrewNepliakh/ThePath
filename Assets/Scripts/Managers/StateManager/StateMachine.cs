@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace Managers
 {
-    public class StateMachine<T> : IDisposable
-        where T : Enum
+    public abstract class StateMachine<T> where T : Enum
     {
         public T CurrentState => (_currentState != null) ? _currentState.State : default;
         public T PreviousState => (_previousState != null) ? _previousState.State : default;
@@ -57,12 +56,6 @@ namespace Managers
         public void ExitAllStates()
         {
             foreach (var state in _states.Values) state.Exit();
-        }
-        
-        void IDisposable.Dispose()
-        {
-            foreach (var iter in _states.Values)
-                iter.Dispose();
         }
     }
 }

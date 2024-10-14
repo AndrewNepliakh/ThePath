@@ -9,11 +9,9 @@ namespace Controllers
     {
         [Inject] private IUIManager _uiManager;
 
-        [Inject] private StateMachine<BattleStates> _gameStateMachine;
+        [Inject] private BattleSceneStateMachine<BattleStates> _battleSceneStateMachine;
 
         [SerializeField] private Canvas _mainCanvas;
-
-        private readonly BattleStates _startGameState = BattleStates.Setup;
 
         [Inject]
         private void Instantiation(
@@ -24,12 +22,12 @@ namespace Controllers
         {
             _uiManager.Init(_mainCanvas);
             
-            _gameStateMachine.AddState(setupBattleState);
-            _gameStateMachine.AddState(choiceActionBattleState);
-            _gameStateMachine.AddState(actionBattleState);
-            _gameStateMachine.AddState(resultBattleState);
+            _battleSceneStateMachine.AddState(setupBattleState);
+            _battleSceneStateMachine.AddState(choiceActionBattleState);
+            _battleSceneStateMachine.AddState(actionBattleState);
+            _battleSceneStateMachine.AddState(resultBattleState);
 
-            _gameStateMachine.ChangeState(_startGameState);
+            _battleSceneStateMachine.ChangeState(BattleStates.Setup);
         }
     }
 }

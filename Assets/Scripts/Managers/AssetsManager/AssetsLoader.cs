@@ -24,8 +24,8 @@ namespace Managers
         {
             _handle = Addressables.LoadAssetAsync<GameObject>(ID);
             var prefab = await _handle.Task;
-            _cachedObject = diContainer.InstantiatePrefab(prefab);
-            if(parent != null) _cachedObject.transform.SetParent(parent);
+            _cachedObject = diContainer.InstantiatePrefab(prefab, parent);
+            if(parent != null) _cachedObject.transform.SetParent(parent, false);
             return TryGetComponent<T>();
         }
 

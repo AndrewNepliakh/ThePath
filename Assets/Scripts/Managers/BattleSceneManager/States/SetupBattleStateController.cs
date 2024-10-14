@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Controllers;
-using Managers;
-using UI;
+﻿using UI;
 using Zenject;
+using Managers;
+using Controllers;
+using System.Threading.Tasks;
 
 public class SetupBattleStateController : IBattleStateController
 {
@@ -32,14 +32,7 @@ public class SetupBattleStateController : IBattleStateController
 
     private async void ShowSetupBattleWindow()
     {
-        var args = new SetupBattleWindowArguments
-        {
-            UnitsManager = _unitsManager,
-            LevelManager = _levelManager,
-            SetupBattleState = _state
-        };
-        
-        await _uiManager.ShowWindow<SetupBattleWindow>(args);
+        await _uiManager.ShowWindowWithDI<SetupBattleWindow>();
     }
 
     private void OnStateComplete()

@@ -8,7 +8,7 @@ public class SetupBattleState :  IState<BattleStates>
 {
     public BattleStates State => BattleStates.Setup;
     
-    [Inject] private StateMachine<BattleStates> _battleStateMachine;
+    [Inject] private BattleSceneStateMachine<BattleStates> _battleStateMachine;
     [Inject] private SetupBattleStateController _controller;
 
     public Action OnStateComplete; 
@@ -30,10 +30,6 @@ public class SetupBattleState :  IState<BattleStates>
     }
 
     public void Update(float deltaTime)
-    {
-    }
-
-    public void Dispose()
     {
     }
 }

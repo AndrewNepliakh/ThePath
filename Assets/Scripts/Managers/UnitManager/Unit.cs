@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour, IUnit
 
     [Space(10)] 
     [SerializeField] private GameObject _choceCanvas;
+    [SerializeField] private GameObject _selectAura;
     
     [SerializeField] private TMP_Text _choceText;
     [SerializeField] private TMP_Text _nameText;
@@ -56,12 +57,19 @@ public class Unit : MonoBehaviour, IUnit
     {
         transform.position = position;
         _isSetCoverPosition = true;
+        SetSelectAura(false);
     }
-    
+
+    public void SetSelectAura(bool state)
+    {
+        _selectAura.SetActive(state);
+    }
+
     public void SetActionChoice(ActionType actionType)
     {
         _actionChoice = actionType;
         _choceCanvas.SetActive(true);
+        SetSelectAura(false);
 
         switch (actionType)
         {

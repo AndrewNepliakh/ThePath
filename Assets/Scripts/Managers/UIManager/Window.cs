@@ -6,7 +6,7 @@ namespace UI
     public abstract class Window : MonoBehaviour, IUIView
     {
         public AssetsLoader AssetsLoader { get; set; }
-
+        
         public virtual void Show(UIViewArguments arguments)
         {
             if (arguments != null)

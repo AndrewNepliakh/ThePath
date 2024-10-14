@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Zenject;
+using Managers;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,9 +8,10 @@ namespace UI
 {
     public class SetupBattleWindow : Window
     {
-        private ILevelManager _levelManager;
-        private IUnitsManager _unitsManager;
-        private SetupBattleState _state;
+        [Inject] private ILevelManager _levelManager;
+        [Inject] private IUnitsManager _unitsManager;
+        [Inject] private SetupBattleState _state;
+        
         private List<Cover> _covers;
     
         private List<ChooseCoverButton> _buttons = new();
@@ -17,12 +19,7 @@ namespace UI
         public override void Show(UIViewArguments arguments)
         {
             base.Show(arguments);
-            
-            _unitsManager = ((SetupBattleWindowArguments) arguments).UnitsManager;
-            _levelManager = ((SetupBattleWindowArguments) arguments).LevelManager;
-            _state = ((SetupBattleWindowArguments) arguments).SetupBattleState;
             _covers = _levelManager.CurrentLevel.Covers;
-    
              SetChooseCoverButton();
         }
     
