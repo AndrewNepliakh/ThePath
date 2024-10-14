@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Controllers;
-using Managers;
+﻿using Managers;
 using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UI
 {
     public class SetupBattleWindow : Window
     {
-        private BattleSceneManager _battleSceneManager;
+        private ILevelManager _levelManager;
+        private IUnitsManager _unitsManager;
         private SetupBattleState _state;
         private List<Cover> _covers;
     
@@ -17,10 +17,11 @@ namespace UI
         public override void Show(UIViewArguments arguments)
         {
             base.Show(arguments);
-    
-            _battleSceneManager = ((SetupBattleWindowArguments) arguments).BattleSceneManager;
+            
+            _unitsManager = ((SetupBattleWindowArguments) arguments).UnitsManager;
+            _levelManager = ((SetupBattleWindowArguments) arguments).LevelManager;
             _state = ((SetupBattleWindowArguments) arguments).SetupBattleState;
-            _covers = _battleSceneManager.Level.Covers;
+            _covers = _levelManager.CurrentLevel.Covers;
     
              SetChooseCoverButton();
         }
@@ -47,7 +48,7 @@ namespace UI
     
         private void SetUnitAtCover(Vector3 position)
         {
-            var playerUnits = _battleSceneManager.Level.Units.playerUnits;
+            var playerUnits = _unitsManager.PlayerUnits;
                 
             if (playerUnits.Any(unit => unit.IsSetCoverPosition is false))
             {

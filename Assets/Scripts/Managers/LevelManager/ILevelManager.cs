@@ -4,6 +4,7 @@ namespace Managers
 {
     public interface ILevelManager
     {
-        Task<T> InstantiateLevel<T>(LevelsArguments args = null) where T : Level;
+        public Level CurrentLevel { get; }
+        Task InstantiateLevel<T>(LevelsArguments args = null) where T : Level;
     }
 }

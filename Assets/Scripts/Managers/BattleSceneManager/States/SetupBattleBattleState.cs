@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Managers;
 using Zenject;
+using Managers;
+using System.Threading.Tasks;
 
 
 public class SetupBattleState :  IState<BattleStates>

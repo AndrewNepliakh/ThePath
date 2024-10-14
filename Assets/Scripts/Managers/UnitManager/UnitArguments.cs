@@ -5,5 +5,6 @@
         public AssetsLoader AssetsLoader;
         public float Speed;
         public UnitSide UnitSide;
+        public string Index;
     }
 }

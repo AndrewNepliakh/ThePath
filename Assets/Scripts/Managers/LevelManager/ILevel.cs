@@ -3,6 +3,6 @@ using Managers;
 
 public interface ILevel
 {
-    Task Init(LevelsArguments args);
+    void Init(LevelsArguments args);
     void Dispose();
 }

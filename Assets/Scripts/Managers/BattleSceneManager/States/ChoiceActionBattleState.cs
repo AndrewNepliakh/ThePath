@@ -21,7 +21,7 @@ public class ChoiceActionBattleState : IState<BattleStates>
     
     private void StateCompleteHandler()
     { 
-       _battleStateMachine.ChangeState(BattleStates.ChoiceAction);
+       _battleStateMachine.ChangeState(BattleStates.Setup);
     }
 
     public void Exit()

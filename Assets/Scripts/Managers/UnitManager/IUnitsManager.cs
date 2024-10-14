@@ -4,7 +4,9 @@ namespace Managers
 {
     public interface IUnitsManager
     {
-        public void Init(UnitsData unitsData);
-        Task<UnitsList> InstantiateUnits();
+        public Unit[] PlayerUnits { get; }
+        public Unit[] OpponentUnits { get; }
+        void Init(UnitsData unitsData);
+        Task InstantiateUnits();
     }
 }

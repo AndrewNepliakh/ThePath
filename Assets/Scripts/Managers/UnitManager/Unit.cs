@@ -13,7 +13,10 @@ public class Unit : MonoBehaviour, IUnit
 
     [Space(10)] 
     [SerializeField] private GameObject _choceCanvas;
+    
     [SerializeField] private TMP_Text _choceText;
+    [SerializeField] private TMP_Text _nameText;
+    
     [SerializeField] private Image _choceTextImage;
     
     private AssetsLoader _assetsLoader;
@@ -31,6 +34,8 @@ public class Unit : MonoBehaviour, IUnit
     
     public void Init(UnitArguments args)
     {
+        _nameText.text = args.Index;
+        
         _assetsLoader = args.AssetsLoader;
         _unitSide = args.UnitSide;
         

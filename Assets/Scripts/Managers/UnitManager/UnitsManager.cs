@@ -1,5 +1,4 @@
-﻿using System;
-using Zenject;
+﻿using Zenject;
 using UnityEngine;
 using System.Threading.Tasks;
 
@@ -13,17 +12,40 @@ namespace Managers
         private Unit[] _opponentUnits;
 
         private UnitsData _unitsData;
-        private int _allUnits;
 
-        public void Init(UnitsData unitsData)
+        public Unit[] PlayerUnits => _playerUnits;
+        public Unit[] OpponentUnits => _opponentUnits;
+
+        public void Init(UnitsData unitsData) => _unitsData = unitsData;
+        
+        public async Task InstantiateUnits()
         {
-            _unitsData = unitsData;
-            _playerUnits = new Unit[_unitsData.playerUnits];
-            _opponentUnits = new Unit[_unitsData.opponentUnits];
-            _allUnits = _playerUnits.Length + _opponentUnits.Length;
+            RemoveAllUnits();
+            await InitPlayerUnits();
+            await InitOpponentUnits();
         }
 
-        public async Task<UnitsList> InstantiateUnits()
+        private void RemoveAllUnits()
+        {
+            if (_playerUnits is null || _opponentUnits is null)
+            {
+                _playerUnits = new Unit[_unitsData.playerUnits];
+                _opponentUnits = new Unit[_unitsData.opponentUnits];
+                
+                return;
+            }
+
+            foreach (var unit in _playerUnits)  
+                unit.Dispose();
+            
+            foreach (var unit in _opponentUnits)  
+                unit.Dispose();
+            
+            _playerUnits = new Unit[_unitsData.playerUnits];
+            _opponentUnits = new Unit[_unitsData.opponentUnits];
+        }
+
+        private async Task InitPlayerUnits()
         {
             for (var i = 0; i < _playerUnits.Length; i++)
             {
@@ -32,25 +54,38 @@ namespace Managers
                 unit.SetStartPosition(GetPlayerUnitsStartPosition(i));
                 _playerUnits[i] = unit;
 
-                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f, UnitSide = UnitSide.Player};
+                var args = new UnitArguments
+                {
+                    AssetsLoader = loader, 
+                    Speed = 1.0f, 
+                    UnitSide = UnitSide.Player,
+                    Index = (i + 1).ToString()
+                };
                 
                 _playerUnits[i].Init(args);
             }
-            
+        }
+        
+        private async Task InitOpponentUnits()
+        {
             for (var i = 0; i < _opponentUnits.Length; i++)
             {
                 var loader = new AssetsLoader();
                 var unit = await loader.InstantiateAssetWithDI<Unit>(typeof(Unit).ToString(), _diContainer);
                 _opponentUnits[i] = unit;
                 
-                var args = new UnitArguments { AssetsLoader = loader, Speed = 1.0f, UnitSide = UnitSide.Opponent};
+                var args = new UnitArguments
+                {
+                    AssetsLoader = loader, 
+                    Speed = 1.0f, 
+                    UnitSide = UnitSide.Opponent,
+                    Index = (i + 1).ToString()
+                };
                 
                 _opponentUnits[i].Init(args);
             }
-
-            return new UnitsList {playerUnits = _playerUnits, opponentUnits = _opponentUnits};
         }
-        
+
         private Vector3 GetPlayerUnitsStartPosition(int index)
         {
             var range = GetMiddleRange(_playerUnits.Length);
@@ -80,12 +115,5 @@ namespace Managers
 
             return middleRange;
         }
-    }
-
-    [Serializable]
-    public class UnitsList
-    {
-        public Unit[] playerUnits;
-        public Unit[] opponentUnits;
     }
 }

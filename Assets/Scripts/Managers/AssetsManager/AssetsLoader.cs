@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
+using UnityEngine;
+using System.Threading.Tasks;
+using Object = UnityEngine.Object;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Managers
 {
     public class AssetsLoader : IAssetsLoader
     {
         private GameObject _cachedObject;
+        private AsyncOperationHandle<GameObject> _handle;
 
         public async Task<T> InstantiateAsset<T>(Transform parent = null, bool instantiateInWorldSpace = false)
         {
-            var handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent, instantiateInWorldSpace);
-            _cachedObject = await handle.Task;
+            _handle = Addressables.InstantiateAsync(typeof(T).ToString(), parent, instantiateInWorldSpace);
+            _cachedObject = await _handle.Task;
             return TryGetComponent<T>();;
         }
         
         public async Task<T> InstantiateAssetWithDI<T>(string ID, DiContainer diContainer, Transform parent = null)
         {
-            var handle = Addressables.LoadAssetAsync<GameObject>(ID);
-            var prefab = await handle.Task;
+            _handle = Addressables.LoadAssetAsync<GameObject>(ID);
+            var prefab = await _handle.Task;
             _cachedObject = diContainer.InstantiatePrefab(prefab);
             if(parent != null) _cachedObject.transform.SetParent(parent);
             return TryGetComponent<T>();
@@ -43,6 +46,12 @@ namespace Managers
 
             _cachedObject.SetActive(false);
             Addressables.ReleaseInstance(_cachedObject);
+            if (_cachedObject != null)
+            {
+                Object.Destroy(_cachedObject);
+                Addressables.Release(_handle);
+            }
+            
             _cachedObject = null;
         }
     }

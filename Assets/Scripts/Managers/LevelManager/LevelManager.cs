@@ -1,23 +1,28 @@
-﻿using System.Threading.Tasks;
-using Zenject;
+﻿using Zenject;
+using System.Threading.Tasks;
 
 namespace Managers
 {
     public class LevelManager : ILevelManager
     {
         [Inject] private DiContainer _diContainer;
+        
+        private Level _currentLevel;
+        
+        public Level CurrentLevel => _currentLevel;
 
-        public async Task<T> InstantiateLevel<T>(LevelsArguments args) where T : Level
+        public async Task InstantiateLevel<T>(LevelsArguments args) where T : Level
         {
             var loader = new AssetsLoader();
-            var level = await loader.InstantiateAssetWithDI<T>(typeof(T).ToString(), _diContainer);
+
+            _currentLevel?.Dispose();
+
+            _currentLevel = await loader.InstantiateAssetWithDI<T>(typeof(T).ToString(), _diContainer);
 
             if (args == null) args = new LevelsArguments {AssetsLoader = loader};
             else args.AssetsLoader = loader;
             
-            await level.Init(args);
-            
-            return level;
+            _currentLevel.Init(args);
         }
     }
 }

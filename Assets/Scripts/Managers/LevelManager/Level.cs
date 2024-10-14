@@ -8,21 +8,15 @@ using Zenject;
 
 public abstract class Level : MonoBehaviour, ILevel
 {
-    [Inject] protected IUnitsManager _unitsManager;
-
-    public List<Cover> Covers => _covers;
-    public UnitsList Units => _units;
-    
     [SerializeField] protected List<Cover> _covers = new();
-    protected UnitsList _units;
+    
+    public List<Cover> Covers => _covers;
 
     private AssetsLoader _assetsLoader;
 
-    public async Task Init(LevelsArguments args)
+    public void Init(LevelsArguments args)
     {
         _assetsLoader = args.AssetsLoader;
-        _unitsManager.Init(args.UnitsData);
-        _units = await _unitsManager.InstantiateUnits();
     }
 
     public void Dispose()

@@ -1,15 +1,15 @@
-﻿using Zenject;
+﻿using UI;
+using Zenject;
 using Managers;
 using System.Linq;
 using System.Threading.Tasks;
-using UI;
 
 namespace Controllers
 {
     public class ChoiceActionBattleStateController : IBattleStateController
     {
-        [Inject] private BattleSceneManager _battleSceneManager;
         [Inject] private ChoiceActionBattleState _state;
+        [Inject] private IUnitsManager _unitsManager;
         [Inject] private IUIManager _uiManager;
         
         private IAIChoiceManager _iaiChoiceManager;
@@ -20,7 +20,7 @@ namespace Controllers
         
         public async Task Init()
         {
-            var opponentUnitsCount = _battleSceneManager.Level.Units.opponentUnits.Length;
+            var opponentUnitsCount = _unitsManager.OpponentUnits.Length;
             _iaiChoiceManager = new IaiChoiceManager(opponentUnitsCount);
             _choiceResulter = new ChoiceResulter();
             
@@ -31,7 +31,7 @@ namespace Controllers
         
         private void ProceedAction(ActionType choice)
         {
-            var playerUnits = _battleSceneManager.Level.Units.playerUnits;
+            var playerUnits = _unitsManager.PlayerUnits;
             
             if (playerUnits.Any(unit => unit.ActionChoice == ActionType.None))
             {
@@ -44,8 +44,8 @@ namespace Controllers
 
         private async void ConfirmActionPhase()
         {
-            var playerUnits = _battleSceneManager.Level.Units.playerUnits;
-            var opponentUnits = _battleSceneManager.Level.Units.opponentUnits;
+            var playerUnits = _unitsManager.PlayerUnits;
+            var opponentUnits = _unitsManager.OpponentUnits;
             
             var aiChoice = _iaiChoiceManager.GetChoices();
             var result = _choiceResulter.GetResult(playerUnits[0].ActionChoice, aiChoice);
