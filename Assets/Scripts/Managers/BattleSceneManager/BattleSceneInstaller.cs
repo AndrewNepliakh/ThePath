@@ -1,5 +1,6 @@
 using Zenject;
 using Controllers;
+using Signals;
 using UnityEngine;
 
 public class BattleSceneInstaller : MonoInstaller

@@ -3,10 +3,12 @@ using Zenject;
 using Managers;
 using Controllers;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class SetupBattleStateController : IBattleStateController
 {
     [Inject] private SetupBattleState _state;
+    [Inject] private ISelectUnitManager _selectUnitManager;
     [Inject] private ILevelManager _levelManager;
     [Inject] private IUnitsManager _unitsManager;
     [Inject] private IGameManager _gameManager;
@@ -19,6 +21,7 @@ public class SetupBattleStateController : IBattleStateController
         await InitLevel();
         await InitUnits();
         ShowSetupBattleWindow();
+        _selectUnitManager.RunPlayerUnitsSelectionQueue();
     }
     
     private async Task InitLevel() => 

@@ -28,11 +28,10 @@ public class Unit : MonoBehaviour, IUnit
     private ActionType _actionChoice;
     
     public UnitSide UnitSide => _unitSide;
-
     public ActionType ActionChoice => _actionChoice;
-
     public bool IsSetCoverPosition => _isSetCoverPosition;
-    
+    public bool IsPassedSelectionQueue { get; set; }
+
     public void Init(UnitArguments args)
     {
         _nameText.text = args.Index;
@@ -57,7 +56,6 @@ public class Unit : MonoBehaviour, IUnit
     {
         transform.position = position;
         _isSetCoverPosition = true;
-        SetSelectAura(false);
     }
 
     public void SetSelectAura(bool state)
@@ -69,7 +67,6 @@ public class Unit : MonoBehaviour, IUnit
     {
         _actionChoice = actionType;
         _choceCanvas.SetActive(true);
-        SetSelectAura(false);
 
         switch (actionType)
         {
@@ -107,10 +104,4 @@ public class Unit : MonoBehaviour, IUnit
     {
         _assetsLoader.UnloadAsset();
     }
-}
-
-public enum UnitSide
-{
-    Player,
-    Opponent
 }

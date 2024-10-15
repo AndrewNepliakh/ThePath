@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace UI
         public Action<Vector3> OnButtonClicked;
         private Camera _camera;
         private Cover _cover;
+        private AssetsLoader _assetsLoader;
     
         private void Awake()
         {
