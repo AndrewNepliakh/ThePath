@@ -39,6 +39,7 @@ namespace UI
             {
                 var assetLoader = new AssetsLoader();
                 var button = await assetLoader.InstantiateAsset<ChooseCoverButton>(transform, true);
+                button.Init(assetLoader);
                 button.SetPosition(cover, transform.GetComponent<RectTransform>());
                 button.OnButtonClicked += SetUnitAtCover;
                 _buttons.Add(button);

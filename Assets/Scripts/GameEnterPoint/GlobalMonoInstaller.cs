@@ -12,6 +12,7 @@ public class GlobalMonoInstaller : MonoInstaller
     {
         SignalBusInstaller.Install(Container);
         Container.DeclareSignalWithInterfaces<SetUnitCoverSignal>();
+        Container.DeclareSignalWithInterfaces<SetUnitActionSignal>();
         
         Container.Bind(typeof(ISelectUnitManager),typeof(IInitializable)).To<SelectUnitManager>().AsSingle().NonLazy();
         Container.Bind<ILevelManager>().To<LevelManager>().AsSingle().NonLazy();

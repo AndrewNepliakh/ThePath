@@ -43,9 +43,6 @@ namespace Managers
         public void UnloadAsset()
         {
             if (_cachedObject == null) return;
-
-            _cachedObject.SetActive(false);
-            Addressables.ReleaseInstance(_cachedObject);
             if (_cachedObject != null)
             {
                 Object.Destroy(_cachedObject);

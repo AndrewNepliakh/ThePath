@@ -13,10 +13,11 @@ namespace UI
         private Camera _camera;
         private Cover _cover;
         private AssetsLoader _assetsLoader;
-    
-        private void Awake()
+        
+        public void Init(AssetsLoader assetLoader)
         {
             _camera = Camera.main;
+            _assetsLoader = assetLoader;
         }
     
         private void OnEnable()
@@ -36,8 +37,8 @@ namespace UI
     
         private void OnButtonClickedAdd()
         {
-            gameObject.SetActive(false);
             OnButtonClicked?.Invoke(_cover.GetProperPosition());
+            _assetsLoader.UnloadAsset();
         }
         
         private void OnDisable()
