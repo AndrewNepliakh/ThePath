@@ -8,7 +8,7 @@ namespace UI
 {
     public class SetupBattleWindow : Window
     {
-        [Inject] private ISelectUnitManager _selectUnitManager;
+        [Inject] private ISelectorUnitManager _selectorUnitManager;
         [Inject] private ILevelManager _levelManager;
         [Inject] private IUnitsManager _unitsManager;
         [Inject] private SetupBattleState _setupBattleState;

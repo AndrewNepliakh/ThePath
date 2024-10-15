@@ -55,6 +55,7 @@ MonoBehaviour:
   _choceText: {fileID: 2881734244554168925}
   _nameText: {fileID: 7024379218078497910}
   _choceTextImage: {fileID: 1102356564334713004}
+  _avatar: {fileID: 21300000, guid: 6eb7d10142303b1448dbabade8e5325c, type: 3}
 --- !u!114 &1854374993481618215
 MonoBehaviour:
   m_ObjectHideFlags: 0

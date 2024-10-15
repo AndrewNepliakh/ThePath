@@ -21,6 +21,7 @@ namespace Controllers
             ResultBattleState resultBattleState)
         {
             _uiManager.Init(_mainCanvas);
+            _uiManager.ShowHUDWindowWithDI<HUDWindow>();
             
             _battleSceneStateMachine.AddState(setupBattleState);
             _battleSceneStateMachine.AddState(choiceActionBattleState);

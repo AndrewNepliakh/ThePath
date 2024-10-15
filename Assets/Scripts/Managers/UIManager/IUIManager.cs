@@ -11,6 +11,9 @@ namespace UI
 
         Task<T> ShowWindowWithDI<T>(UIViewArguments args = null)
             where T : Window;
+        
+        Task<T> ShowHUDWindowWithDI<T>(UIViewArguments args = null)
+            where T : Window;
 
         void HideWindow(UIViewArguments args = null);
     }

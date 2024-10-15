@@ -19,21 +19,29 @@ public class Unit : MonoBehaviour, IUnit
     [SerializeField] private TMP_Text _nameText;
     
     [SerializeField] private Image _choceTextImage;
+
+    [Space(10)] 
+    [SerializeField] private Sprite _avatar;
     
     private AssetsLoader _assetsLoader;
     
     private bool _isSetCoverPosition;
     
     private UnitSide _unitSide;
+    
     private ActionType _actionChoice;
     
     public UnitSide UnitSide => _unitSide;
     public ActionType ActionChoice => _actionChoice;
     public bool IsSetCoverPosition => _isSetCoverPosition;
     public bool IsPassedSelectionQueue { get; set; }
+    public string Name => _nameText.text;
+    public Sprite Avatar { get; set; }
 
     public void Init(UnitArguments args)
     {
+        Avatar = _avatar;
+        
         _nameText.text = args.Index;
         
         _assetsLoader = args.AssetsLoader;

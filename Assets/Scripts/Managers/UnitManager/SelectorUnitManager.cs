@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Managers
 {
-    public class SelectUnitManager : ISelectUnitManager, IInitializable
+    public class SelectorUnitManager : ISelectorUnitManager, IInitializable
     {
         [Inject] private IUnitsManager _unitsManager;
         [Inject] private SignalBus _signalBus;
@@ -13,7 +13,9 @@ namespace Managers
         private Unit _selectedUnit;
         
         public Unit SelectedUnit => _selectedUnit;
-        
+
+        public Action<Unit> OnSelectedUnitChanged { get; set; }
+
         public void Initialize()
         {
             _signalBus.Subscribe<IUnitSelectableSignal>(NextPlayerUnitsSelectionQueue);
@@ -31,6 +33,8 @@ namespace Managers
             
             _selectedUnit = playerUnits.First(unit => unit.IsPassedSelectionQueue is false);
             _selectedUnit.SetSelectAura(true);
+            
+            OnSelectedUnitChanged?.Invoke(_selectedUnit);
         }
 
         public void NextPlayerUnitsSelectionQueue(IUnitSelectableSignal signal)
@@ -44,6 +48,7 @@ namespace Managers
             if (playerUnits.Any(unit => unit.IsPassedSelectionQueue is false))
             {
                 _selectedUnit = playerUnits.First(unit => unit.IsPassedSelectionQueue is false);
+                OnSelectedUnitChanged?.Invoke(_selectedUnit);
                 _selectedUnit.SetSelectAura(true);
                 return;
             }

@@ -13,9 +13,11 @@ namespace UI
         [Inject] private DiContainer _diContainer;
         
         private Window _currentWindow;
+        private Window _currentHUDWindow;
         private Canvas _mainCanvas;
 
         private Dictionary<Type, IUIView> _viewsPool = new();
+        private Dictionary<Type, IUIView> _HUDPool = new();
 
         public void Init(Canvas mainCanvas)
         {
@@ -86,6 +88,38 @@ namespace UI
             }
             
             return (T) _currentWindow;
+        }
+        
+        public async Task<T> ShowHUDWindowWithDI<T>(UIViewArguments args = null) where T : Window
+        {
+            if (_currentHUDWindow != null) _currentHUDWindow.Hide(null);
+            
+            if (!_HUDPool.ContainsKey(typeof(T)))
+            {
+                var loader = new AssetsLoader();
+                var newWindow = await loader.InstantiateAssetWithDI<T>(typeof(T).ToString(), _diContainer, _mainCanvas.transform);
+                _currentHUDWindow = newWindow;
+                _HUDPool.Add(typeof(T), _currentHUDWindow);
+                
+                if (args == null) args = new UIViewArguments {AssetsLoader = loader};
+                else args.AssetsLoader = loader;
+
+                _currentHUDWindow.Show(args);
+            }
+            else
+            {
+                if (_HUDPool.TryGetValue(typeof(T), out var uiView))
+                {
+                    _currentHUDWindow = uiView as Window;
+                    _currentHUDWindow.Show(args);
+                }
+                else
+                {
+                    throw new NullReferenceException("UIManager's pool doesn't contain view of this type");
+                }
+            }
+            
+            return (T) _currentHUDWindow;
         }
 
         public void HideWindow(UIViewArguments args)

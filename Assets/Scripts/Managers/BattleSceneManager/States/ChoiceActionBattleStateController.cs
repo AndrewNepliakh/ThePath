@@ -10,7 +10,7 @@ namespace Controllers
     public class ChoiceActionBattleStateController : IBattleStateController
     {
         [Inject] private ChoiceActionBattleState _state;
-        [Inject] private ISelectUnitManager _selectUnitManager;
+        [Inject] private ISelectorUnitManager _selectorUnitManager;
         [Inject] private IUnitsManager _unitsManager;
         [Inject] private IUIManager _uiManager;
         [Inject] private SignalBus _signalBus;
@@ -25,7 +25,7 @@ namespace Controllers
         {
             SetAIChoiceManager();
             await ShowChooseActionWindow();
-            _selectUnitManager.RunPlayerUnitsSelectionQueue();
+            _selectorUnitManager.RunPlayerUnitsSelectionQueue();
         }
 
         private void SetAIChoiceManager()

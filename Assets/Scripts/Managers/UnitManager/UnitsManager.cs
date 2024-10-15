@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 
 namespace Managers
 {
-    public class UnitsManager : IUnitsManager
+    public class UnitsManager : IUnitsManager, IInitializable
     {
         [Inject] private DiContainer _diContainer;
+        [Inject] private IGameManager _gameManager;
         
         private Unit[] _playerUnits;
         private Unit[] _opponentUnits;
@@ -15,8 +16,11 @@ namespace Managers
 
         public Unit[] PlayerUnits => _playerUnits;
         public Unit[] OpponentUnits => _opponentUnits;
-
-        public void Init(UnitsData unitsData) => _unitsData = unitsData;
+        
+        public void Initialize()
+        {
+            _unitsData = _gameManager.UnitsData;
+        }
         
         public async Task InstantiateUnits()
         {
